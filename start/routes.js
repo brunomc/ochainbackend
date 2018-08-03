@@ -16,7 +16,7 @@
 const Route = use('Route')
 
 Route.get('/', ({ request }) => {
-  return { greeting: 'Hello world in JSON' }
+  return { greeting: 'API OCHAIN' }
 })
 
 Route.resource('users','UserController')
