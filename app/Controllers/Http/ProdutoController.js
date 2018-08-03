@@ -24,7 +24,7 @@ class ProdutoController {
 
     const produto = await Produto.create(data)
 
-    return use
+    return produto
   }
 
   /**
