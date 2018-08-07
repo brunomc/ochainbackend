@@ -7,7 +7,6 @@ var CryptoJS = require('crypto-js');
 //private key gerada a partir das 12 palavras chaves privadas da carteira
 const privateKey = Buffer.from('a2d9a9cc454b3b8793ac10b1bab2cbbd04d2baab4720a759fe5a3228a802743b', 'hex');
 //var mnemonic = "pepper athlete brand party proud cabin federal often despair regret corn artefact";
- 
 
 var ProductContract = require('../../config/EthereumSetup.js');
 //var Product = require('../models/Product');
