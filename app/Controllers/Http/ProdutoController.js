@@ -1,5 +1,4 @@
 'use strict'
-
 const Web3 = require('web3') ;
 const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/BUYxMOgW9MGsKcg8rkeq"));
 EthereumTx = require('ethereumjs-tx');
