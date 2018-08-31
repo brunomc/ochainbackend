@@ -11,7 +11,7 @@ const ProductContract = require('../../config/EthereumSetup.js');
 var account = "0xe0e702bbe5af4e664db9589100c2e6711a34263c";
 var addressContract = "0x3df6e62b65e685f0535bce423111717acc891579";
 
-exports.save = function(nameProduct,productionDate,manufacturer,trackerProgress){
+exports.save = function(nameProduct,productionDate,manufacturer,trackerProgress, callback){
 	var functionName = 'registerProduct'; 
 	var types = ['string','string','string','string']; 
 	var args = [nameProduct, productionDate, manufacturer, trackerProgress];
