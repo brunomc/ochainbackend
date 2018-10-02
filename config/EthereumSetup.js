@@ -5,6 +5,48 @@ const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io
 let TrackerProductABI = 
 [
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "components": [
+          {
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "name": "ownerProduct",
+            "type": "string"
+          },
+          {
+            "name": "nameProduct",
+            "type": "string"
+          },
+          {
+            "name": "addressFather",
+            "type": "address"
+          },
+          {
+            "name": "productionDate",
+            "type": "string"
+          },
+          {
+            "name": "manufacturer",
+            "type": "string"
+          },
+          {
+            "name": "tracker",
+            "type": "string"
+          }
+        ],
+        "indexed": false,
+        "name": "product",
+        "type": "tuple"
+      }
+    ],
+    "name": "CadNewOwner",
+    "type": "event"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -25,6 +67,24 @@ let TrackerProductABI =
       }
     ],
     "name": "registerProduct",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_ind",
+        "type": "uint256"
+      },
+      {
+        "name": "_ownerProduct",
+        "type": "string"
+      }
+    ],
+    "name": "updateOwnerProduct",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -61,6 +121,10 @@ let TrackerProductABI =
       {
         "name": "",
         "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "string"
       },
       {
         "name": "",
@@ -131,6 +195,6 @@ let TrackerProductABI =
     "type": "function"
   }
 ]
-let trackerProductAddressContract = '0x3df6e62b65e685f0535bce423111717acc891579';
+let trackerProductAddressContract = '0x8e228E5B7F0bad7e0794865d30260386719f7210';
 const ProductContract = web3.eth.contract(TrackerProductABI).at(trackerProductAddressContract);
 module.exports= ProductContract;

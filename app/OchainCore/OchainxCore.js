@@ -9,7 +9,7 @@ const privateKey = Buffer.from('a2d9a9cc454b3b8793ac10b1bab2cbbd04d2baab4720a759
  
 const ProductContract = require('../../config/EthereumSetup.js');
 var account = "0xe0e702bbe5af4e664db9589100c2e6711a34263c";
-var addressContract = "0x3df6e62b65e685f0535bce423111717acc891579";
+var addressContract = "0x8e228E5B7F0bad7e0794865d30260386719f7210";
 
 exports.save = function(nameProduct,productionDate,manufacturer,trackerProgress, callback){
 	var functionName = 'registerProduct'; 
@@ -28,12 +28,16 @@ exports.save = function(nameProduct,productionDate,manufacturer,trackerProgress,
 	var serializedTx = '0x'+tx.serialize().toString('hex') ;
 	web3.eth.sendRawTransaction(serializedTx, function(err, txHash){
 		if(txHash){
-			return txHash;
+			var success = txHash;
 		} else {
-			return err;
+			var error = err;
 		}
 	}); 
-
+	if(success){
+		return success;
+	}else{
+		return error;
+	}
 };
 exports.updateProductTracker = function(idProduct,trackerProgress){
 	var functionName = 'updateTracker'; 

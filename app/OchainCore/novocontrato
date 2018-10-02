@@ -1,0 +1,73 @@
+pragma solidity ^0.4.24;
+pragma experimental ABIEncoderV2;
+contract TrackerProduct {
+
+   uint256 public productId;
+   
+
+  function getProductId() internal returns (uint256) {
+    return productId++;
+  }
+  struct Product {
+        uint256 id;
+        string ownerProduct;
+        string nameProduct;
+        address addressFather;
+        string productionDate;
+        string manufacturer;
+        string tracker;
+    }
+  mapping (uint256 => Product) products;
+  uint256[] public productSetters;
+  event CadNewOwner(Product product);
+
+ function concat(string _a, string _b) internal pure returns (string) {
+        bytes memory bytes_a = bytes(_a);
+        bytes memory bytes_b = bytes(_b);
+        string memory length_ab = new string(bytes_a.length + bytes_b.length);
+        bytes memory bytes_c = bytes(length_ab);
+        uint k = 0;
+        for (uint i = 0; i < bytes_a.length; i++) bytes_c[k++] = bytes_a[i];
+        for (i = 0; i < bytes_b.length; i++) bytes_c[k++] = bytes_b[i];
+        return string(bytes_c);
+    }
+  
+  function registerProduct(string _nameProduct,string _productionDate, string _manufacturer, string _trackerProgress) public {
+      uint index= getProductId();
+      Product storage  product =products[index];
+      product.id = index;
+      product.nameProduct = _nameProduct;
+      product.ownerProduct = _manufacturer;
+      product.addressFather = msg.sender;
+      product.productionDate = _productionDate;
+      product.manufacturer = _manufacturer;
+      _trackerProgress = concat("-",_trackerProgress);
+      product.tracker = concat(product.tracker,_trackerProgress);
+      productSetters.push(index);
+  }
+  function updateTracker(uint256 _ind, string _trackerProgress) public {
+      _trackerProgress = concat("-",_trackerProgress);
+      products[_ind].tracker = concat(products[_ind].tracker,_trackerProgress);
+     
+  }
+  function updateOwnerProduct(uint256 _ind, string _ownerProduct) public {
+      
+      products[_ind].ownerProduct =  _ownerProduct;
+      emit CadNewOwner(products[_ind]);
+     
+  }
+  
+   function getProduct(uint256 ind) view public returns (uint256,string, string,string, string, string) {
+        return (products[ind].id,products[ind].nameProduct, products[ind].productionDate,products[ind].ownerProduct, products[ind].manufacturer,products[ind].tracker);
+    }
+
+   function getProductCount() view public returns (uint256){
+      return productSetters.length;
+   }
+   
+   
+
+
+
+
+}
