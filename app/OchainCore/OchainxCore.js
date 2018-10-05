@@ -124,8 +124,10 @@ exports.getProductById = function(id,callback){
 			id: data[0],
 			nameProduct: data[1],
 			dateFabrication: data[2],
-			manufacturer: data[3],
-			tracker: data[4]
+			dateFabrication: data[3],
+			manufacturer: data[4],
+			tracker: data[5],
+
 
 		};
 				
