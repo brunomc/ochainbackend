@@ -120,11 +120,12 @@ exports.list = () =>{
 exports.getProductById = function(id,callback){
 	
 		var data = ProductContract.getProduct(id);
+		console.log(data);
 		var jsonObjProduct = {
 			id: data[0],
 			nameProduct: data[1],
 			dateFabrication: data[2],
-			dateFabrication: data[3],
+			ownerProduct: data[3],
 			manufacturer: data[4],
 			tracker: data[5],
 
