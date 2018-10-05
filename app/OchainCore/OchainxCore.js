@@ -9,36 +9,37 @@ const privateKey = Buffer.from('a2d9a9cc454b3b8793ac10b1bab2cbbd04d2baab4720a759
  
 const ProductContract = require('../../config/EthereumSetup.js');
 var account = "0xe0e702bbe5af4e664db9589100c2e6711a34263c";
-var addressContract = "0x8e228E5B7F0bad7e0794865d30260386719f7210";
+var addressContract = "0x921Df9f6c2AFDE3e728A8a1ebb8Ae4bB24AfbA40";
 
-exports.save = function(nameProduct,productionDate,manufacturer,trackerProgress, callback){
-	var functionName = 'registerProduct'; 
+exports.save =  function(nameProduct,productionDate,manufacturer,trackerProgress){
+	var functionName = 'registerProduct';
 	var types = ['string','string','string','string']; 
 	var args = [nameProduct, productionDate, manufacturer, trackerProgress];
 	var fullName = functionName + '(' + types.join() + ')';  
 	var signature = CryptoJS.SHA3(fullName,{outputLength:256}).toString(CryptoJS.enc.Hex).slice(0, 8);
 	var dataHex = signature + coder.encodeParams(types, args);
 	var data = '0x'+dataHex;
-	var nonce = web3.toHex(web3.eth.getTransactionCount(account))  ;
+	var nonce = web3.toHex(web3.eth.getTransactionCount(account));
 	var gasPrice = web3.toHex(web3.eth.gasPrice) ; 
 	var gasLimitHex = web3.toHex(300000); 
 	var rawTx = { 'nonce': nonce, 'gasPrice': gasPrice, 'gasLimit': gasLimitHex, 'from': account, 'to': addressContract, 'data': data, 'chainId':4} ; 
 	var tx = new EthereumTx(rawTx) ;
 	tx.sign(privateKey);
 	var serializedTx = '0x'+tx.serialize().toString('hex') ;
-	web3.eth.sendRawTransaction(serializedTx, function(err, txHash){
-		if(txHash){
-			var success = txHash;
-		} else {
-			var error = err;
-		}
-	}); 
-	if(success){
-		return success;
-	}else{
-		return error;
-	}
-};
+	return new Promise((resolve, reject) => {
+		web3.eth.sendRawTransaction(serializedTx, function(error, result){
+			if(result){
+				resposta = {resposta:result};		
+				resolve(resposta);
+			} else {
+				resposta = {resposta:error};
+				reject(resposta);
+			}	
+		}); 
+	
+	});
+	
+};	
 exports.updateProductTracker = function(idProduct,trackerProgress){
 	var functionName = 'updateTracker'; 
 	var types = ['uint256','string']; 
@@ -54,18 +55,46 @@ exports.updateProductTracker = function(idProduct,trackerProgress){
 	var tx = new EthereumTx(rawTx) ;
 	tx.sign(privateKey);
 	var serializedTx = '0x'+tx.serialize().toString('hex') ;
-	web3.eth.sendRawTransaction(serializedTx, function(err, txHash){
-		if(err){
-			return {
-				resposta:"Erro ao atualizar dados tracker do Produto no Blockchain"
-			};
-		}
-		
-		return {
-			resposta:txHash
-		};
-	}); 
-
+	return new Promise((resolve, reject) => {
+		web3.eth.sendRawTransaction(serializedTx, function(error, result){
+			if(result){
+				resposta = {resposta:result};		
+				resolve(resposta);
+			} else {
+				resposta = {resposta:error};
+				reject(resposta);
+			}	
+		}); 
+	
+	});
+};
+exports.updateOwnerProduct = function(idProduct,ownerProduct){
+	var functionName = 'updateOwnerProduct'; 
+	var types = ['uint256','string']; 
+	var args = [idProduct, ownerProduct]; 
+	var fullName = functionName + '(' + types.join() + ')';  
+	var signature = CryptoJS.SHA3(fullName,{outputLength:256}).toString(CryptoJS.enc.Hex).slice(0, 8);
+	var dataHex = signature + coder.encodeParams(types, args);
+	var data = '0x'+dataHex;
+	var nonce = web3.toHex(web3.eth.getTransactionCount(account))  ;
+	var gasPrice = web3.toHex(web3.eth.gasPrice) ; 
+	var gasLimitHex = web3.toHex(300000); 
+	var rawTx = { 'nonce': nonce, 'gasPrice': gasPrice, 'gasLimit': gasLimitHex, 'from': account, 'to': addressContract, 'data': data, 'chainId':4} ; 
+	var tx = new EthereumTx(rawTx) ;
+	tx.sign(privateKey);
+	var serializedTx = '0x'+tx.serialize().toString('hex') ;
+	return new Promise((resolve, reject) => {
+		web3.eth.sendRawTransaction(serializedTx, function(error, result){
+			if(result){
+				resposta = {resposta:result};		
+				resolve(resposta);
+			} else {
+				resposta = {resposta:error};
+				reject(resposta);
+			}	
+		}); 
+	
+	});
 };
 
 

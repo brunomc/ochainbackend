@@ -21,3 +21,5 @@ Route.get('/', ({ request }) => {
 
 Route.resource('users','UserController')
 Route.resource('produtos','ProdutoController')
+Route.post('produtos/updateOwnerProduct','ProdutoController.updateOwnerProduct')
+

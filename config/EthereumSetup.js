@@ -195,6 +195,6 @@ let TrackerProductABI =
     "type": "function"
   }
 ]
-let trackerProductAddressContract = '0x8e228E5B7F0bad7e0794865d30260386719f7210';
+let trackerProductAddressContract = '0x921Df9f6c2AFDE3e728A8a1ebb8Ae4bB24AfbA40';
 const ProductContract = web3.eth.contract(TrackerProductABI).at(trackerProductAddressContract);
 module.exports= ProductContract;

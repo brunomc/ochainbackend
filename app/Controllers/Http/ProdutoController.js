@@ -20,22 +20,20 @@ async  index ({ request, response }) {
    * Create/save a new produto.
    * POST produtos
    */
-  async store ({ request, response }) {
+  async store ({ request, response }){
     const dataBody = request.only(["nameProduct","productionDate","manufacturer","trackerProgress"])
-   return await OchainX.save(
+    return OchainX.save(
      dataBody.nameProduct,
      dataBody.productionDate,
      dataBody.manufacturer,
      dataBody.trackerProgress)
-  
-  }
+    }
 
   /**
    * Display a single produto.
    * GET produtos/:id
    */
   async show ({ params, request, response}) {
-    
       return await OchainX.getProductById(params.id)  
   }
 
@@ -46,6 +44,14 @@ async  index ({ request, response }) {
   async update ({ params, request, response }) {
      var data = request.only(['trackerProgress']);
      return await OchainX.updateProductTracker(params.id,data.trackerProgress);
+  }
+  /**
+   * Update produto details.
+   * PUT or PATCH produtos/:id
+   */
+  async updateOwnerProduct ({ params, request, response }) {
+     var data = request.only(['ownerProduct']);
+     return await OchainX.updateProductTracker(params.id,data.ownerProduct);
   }
 
   /**
