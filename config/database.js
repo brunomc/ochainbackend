@@ -69,13 +69,7 @@ module.exports = {
   */
   pg: {
     client: 'pg',
-    connection: {
-      host: Env.get('DB_HOST', 'tantor.db.elephantsql.com'),
-      port: Env.get('DB_PORT', '5432'),
-      user: Env.get('DB_USER', 'sajzbznp'),
-      password: Env.get('DB_PASSWORD', 'NtKyFuZYxpP3GSOgrTyuBDniTqpchn1l'),
-      database: Env.get('DB_DATABASE', 'sajzbznp')
-    },
+    connection: 'postgres://admin:TXVIVPSLFSINJQDD@sl-us-south-1-portal.21.dblayer.com:61336/compose',
     debug: Env.get('DB_DEBUG', false)
   }
 }

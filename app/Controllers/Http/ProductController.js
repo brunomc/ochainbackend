@@ -2,7 +2,7 @@ const OchainX = require('../../OchainCore/OchainxCore');
 /**
  * Resourceful controller for interacting with produtos
  */
-class ProdutoController {
+class ProductController {
 
   //private key gerada a partir das 12 palavras chaves privadas da carteira
 
@@ -64,4 +64,4 @@ async  index ({ request, response }) {
   }
 }
 
-module.exports = ProdutoController
+module.exports = ProductController
